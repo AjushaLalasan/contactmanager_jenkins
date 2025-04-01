@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Contact Manager | Create/Update Contact</title>
+    <link rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #FFFFFF;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Header (Copied from Contact List Page) */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-color: #143D60;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            margin-right: 10px;
+        }
+
+        /* Form Container */
+        .container {
+            width: 90%;
+            max-width: 500px;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+            margin: 30px auto;
+        }
+
+        /* Header */
+        .container h1 {
+            color: #143D60;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            text-align: left;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #143D60;
+            background-color: #F8F8F8;
+            color: #333;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #A0C878;
+            outline: none;
+            box-shadow: 0 0 5px rgba(160, 200, 120, 0.5);
+        }
+
+        /* Buttons */
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .save-btn {
+            background-color: #EB5B00;
+            color: white;
+            font-weight: bold;
+        }
+
+        .save-btn:hover {
+            background-color: #C94D00;
+        }
+
+        .back-btn {
+            background-color: #7D0A0A;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 10px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .back-btn:hover {
+            background-color: #600606;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Banner (Copied from Contact List Page) -->
+    <div class="header">
+        <span class="logo">📇</span> Contact Manager
+    </div>
+
+    <!-- Form Container -->
+    <div class="container">
+        <h1 th:if="${contact.id == null}">Create New Contact</h1>
+        <h1 th:if="${contact.id != null}">Edit Contact</h1>
+
+        <form th:action="@{/contacts/save}" method="post" th:object="${contact}">
+            <input type="hidden" th:field="*{id}" />
+
+            <label for="name">Name:</label>
+            <input type="text" th:field="*{name}" id="name" required />
+
+            <label for="phone">Phone:</label>
+            <input type="text" th:field="*{phone}" id="phone" required />
+
+            <label for="email">Email:</label>
+            <input type="email" th:field="*{email}" id="email" />
+
+            <label for="address">Address:</label>
+            <input type="text" th:field="*{address}" id="address" />
+
+            <div class="button-container">
+                <button type="submit" class="save-btn"><i class="fa fa-save"></i> Save</button>
+                <a href="/contacts" class="back-btn"><i class="fa fa-arrow-left"></i> Back</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

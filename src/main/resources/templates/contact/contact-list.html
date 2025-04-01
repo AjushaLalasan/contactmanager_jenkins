@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Contact Manager</title>
+    <link rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #FFFFFF;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-color: #143D60;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            margin-right: 10px;
+        }
+
+        /* Main Container */
+        .container {
+            width: 85%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        /* Search & Add Button */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #143D60;
+            background-color: #F8F8F8;
+            color: #333;
+            width: 250px;
+            transition: 0.3s;
+        }
+
+        .search-bar input:focus {
+            border-color: #A0C878;
+            outline: none;
+            box-shadow: 0 0 5px rgba(160, 200, 120, 0.5);
+        }
+
+        .search-bar button {
+            padding: 10px 15px;
+            background-color: #EB5B00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        .search-bar button:hover {
+            background-color: #C94D00;
+        }
+
+        .add-button {
+            padding: 10px 15px;
+            background-color: #143D60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .add-button:hover {
+            background-color: #0F2C45;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #E0E0E0;
+            font-size: 16px;
+        }
+
+        th {
+            background-color: #143D60;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        td {
+            background-color: white;
+            color: #333;
+        }
+
+        /* Action Buttons */
+        .actions a {
+            text-decoration: none;
+            padding: 8px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            margin: 0 5px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .edit {
+            background-color: #A0C878;
+            color: white;
+        }
+
+        .edit:hover {
+            background-color: #89B064;
+        }
+
+        .delete {
+            background-color: #7D0A0A;
+            color: white;
+        }
+
+        .delete:hover {
+            background-color: #600606;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <span class="logo">📇</span> Contact Manager
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        
+        <!-- Search & Add Button -->
+        <div class="top-bar">
+            <form class="search-bar" action="/contacts/search" method="get">
+                <input type="text" name="keyword" placeholder="Search contacts" />
+                <button type="submit"><i class="fa fa-search"></i> Search</button>
+            </form>
+            <a href="/contacts/new" class="add-button"><i class="fa fa-plus"></i> Add Contact</a>
+        </div>
+
+        <!-- Contact Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="contact : ${contacts}">
+                    <td th:text="${contact.name}"></td>
+                    <td th:text="${contact.phone}"></td>
+                    <td th:text="${contact.email}"></td>
+                    <td th:text="${contact.address}"></td>
+                    <td class="actions">
+                        <a th:href="@{/contacts/edit/{id}(id=${contact.id})}" class="edit">
+                            <i class="fa fa-edit"></i> Edit
+                        </a>
+                        <a th:href="@{/contacts/delete/{id}(id=${contact.id})}" class="delete">
+                            <i class="fa fa-trash"></i> Delete
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
