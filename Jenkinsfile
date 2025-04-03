@@ -8,10 +8,14 @@ pipeline {
         K8S_DEPLOYMENT = 'contactmanager-deployment.yaml'
     }
     stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/AjushaLalasan/contactmanager_jenkins'
+            }
+        }
+
         stage('Build Maven') {
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], 
-                                userRemoteConfigs: [[url: 'https://github.com/AjushaLalasan/contactmanager_jenkins']]])
                 bat 'mvn clean install'
             }
         }
