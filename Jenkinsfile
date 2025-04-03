@@ -40,6 +40,7 @@ pipeline {
         stage('Deploy to k8s') {
             steps {
                 script {
+					bat 'set KUBECONFIG=C:\\Users\\Lenovo\\.kube\\config'
 					bat 'echo %KUBECONFIG%'  // Check if KUBECONFIG is set
             		bat 'kubectl config view'  // See if Jenkins can access Kubernetes
 					bat 'kubectl --server=https://127.0.0.1:64534 apply -f contactmanager-deployment.yaml --validate=false'
