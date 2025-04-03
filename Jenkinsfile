@@ -4,9 +4,7 @@ pipeline {
         jdk 'JDK 17'
         maven 'Maven 3'
     }
-    environment {
-        K8S_DEPLOYMENT = 'contactmanager-deployment.yaml'
-    }
+   
     stages {
         stage('Checkout Code') {
             steps {
@@ -42,7 +40,7 @@ pipeline {
         stage('Deploy to k8s') {
             steps {
                 script {
-                    bat "kubectl apply -f ${K8S_DEPLOYMENT}"
+                     bat 'kubectl apply -f contactmanager-deployment.yaml --validate=false'
                     bat "kubectl rollout status deployment/contactmanager-deployment"
                 }
             }
