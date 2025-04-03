@@ -40,6 +40,8 @@ pipeline {
         stage('Deploy to k8s') {
             steps {
                 script {
+					bat 'minikube status'
+					bat 'set KUBECONFIG=%USERPROFILE%\\.kube\\config'
                     bat 'kubectl --server=https://127.0.0.1:64534 apply -f contactmanager-deployment.yaml --validate=false'
                     bat "kubectl rollout status deployment/contactmanager-deployment"
                 }
