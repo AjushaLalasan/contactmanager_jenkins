@@ -27,6 +27,13 @@ pipeline{
                     bat 'docker push ajusha/contactmanager'
                 }
             }
+         stage('Deploy to k8s'){
+			steps{
+				script{
+					
+				}
+			}
+		 }
         }
     }
 }
