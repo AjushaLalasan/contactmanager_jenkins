@@ -40,7 +40,9 @@ pipeline {
         stage('Deploy to k8s') {
             steps {
                 script {
-					kubernetesDeploy (configs: 'contactmanager-deployment.yaml')
+					withCredentials([file(credentialsId: 'KUBE_CONFIG', variable: 'kubeconfig')]) {
+    				bat 'kubectl apply -f contactmanager-deployment.yaml'
+	}
                 }
             }
         }
