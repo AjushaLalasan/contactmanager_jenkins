@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.cms.model.Contact;
 import com.cms.service.ContactService;
-
+//Controller
 @Controller
 @RequestMapping("/contacts")
 public class ContactController {
